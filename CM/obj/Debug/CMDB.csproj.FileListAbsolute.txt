@@ -1,0 +1,13 @@
+D:\Test_Program\CM\CM\bin\Debug\CM.XML
+D:\Test_Program\CM\CM\bin\Debug\CM.dll
+D:\Test_Program\CM\CM\bin\Debug\CM.pdb
+D:\Test_Program\CM\CM\bin\Debug\Oracle.ManagedDataAccess.dll
+D:\Test_Program\CM\CM\obj\Debug\CM.dll
+D:\Test_Program\CM\CM\obj\Debug\CM.pdb
+D:\OtherProgram\CM\CM\bin\Debug\CM.XML
+D:\OtherProgram\CM\CM\bin\Debug\CM.dll
+D:\OtherProgram\CM\CM\bin\Debug\CM.pdb
+D:\OtherProgram\CM\CM\bin\Debug\Oracle.ManagedDataAccess.dll
+D:\OtherProgram\CM\CM\obj\Debug\CMDB.csprojResolveAssemblyReference.cache
+D:\OtherProgram\CM\CM\obj\Debug\CM.dll
+D:\OtherProgram\CM\CM\obj\Debug\CM.pdb
