@@ -34,6 +34,10 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Oracle Developer Tools for VS2015\odp.net\managed\common\Oracle.ManagedDataAccess.dll</HintPath>
@@ -51,6 +55,7 @@
   <ItemGroup>
     <Compile Include="BaseDB\CommonFunc.cs" />
     <Compile Include="BaseDB\DBAbstract.cs" />
+    <Compile Include="BaseEFExcuter.cs" />
     <Compile Include="CM.cs" />
     <Compile Include="BaseDB\ICreateSql.cs" />
     <Compile Include="BaseDB\IDataBase.cs" />
@@ -68,6 +73,7 @@
     <Compile Include="_SqlServer\SqlTools.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DLL\EntityFramework.dll" />
     <Content Include="DLL\Oracle.ManagedDataAccess.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

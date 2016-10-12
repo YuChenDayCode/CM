@@ -23,7 +23,11 @@ namespace MvcApplication.Controllers
             //{
           
             List<TEST1_CZ> a = CM.DB.Select<TEST1_CZ>(t => t.COLUMN1.Contains("1") && t.ID == 1);
+
+            a.OrderBy(t => t.ID);
+
             return null;
+            
             //
             // catch (Exception e) { }
 
