@@ -4,9 +4,14 @@ using System.Linq;
 using System.Data.Entity;
 using System.Linq.Expressions;
 
-namespace AriTime.iEAM.DAL.Excuter
+namespace CMDB
 {
-    public class BaseSqlExcuter<TContext, TEntity>
+    /// <summary>
+    /// EF帮助类
+    /// </summary>
+    /// <typeparam name="TContext">上下文对象</typeparam>
+    /// <typeparam name="TEntity">T</typeparam>
+    public class BaseEfExcuter<TContext, TEntity>
         where TContext : DbContext, new()
         where TEntity : class, new()
     {

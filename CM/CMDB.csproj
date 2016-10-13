@@ -55,7 +55,7 @@
   <ItemGroup>
     <Compile Include="BaseDB\CommonFunc.cs" />
     <Compile Include="BaseDB\DBAbstract.cs" />
-    <Compile Include="BaseEFExcuter.cs" />
+    <Compile Include="BaseEfExcuter.cs" />
     <Compile Include="CM.cs" />
     <Compile Include="BaseDB\ICreateSql.cs" />
     <Compile Include="BaseDB\IDataBase.cs" />
