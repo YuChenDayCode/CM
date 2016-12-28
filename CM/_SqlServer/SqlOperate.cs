@@ -89,7 +89,7 @@ namespace CMDB
                 using (SqlCommand scmd = new SqlCommand(InsertSql.CreateSqlId<T>(t), sct))
                 {
                     return SqlResult.returnObject(scmd);
-                } 
+                }
             }
         }
 

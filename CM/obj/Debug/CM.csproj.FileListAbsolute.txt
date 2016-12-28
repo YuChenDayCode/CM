@@ -1,6 +1,0 @@
-D:\Test_Program\CM\CM\obj\Debug\CM.csprojResolveAssemblyReference.cache
-D:\Test_Program\CM\CM\bin\Debug\CM.dll
-D:\Test_Program\CM\CM\bin\Debug\CM.pdb
-D:\Test_Program\CM\CM\obj\Debug\CM.dll
-D:\Test_Program\CM\CM\obj\Debug\CM.pdb
-D:\Test_Program\CM\CM\bin\Debug\Oracle.DataAccess.dll

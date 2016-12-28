@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseDBExcuter.cs" />
     <Compile Include="BaseDB\CommonFunc.cs" />
     <Compile Include="BaseDB\DBAbstract.cs" />
     <Compile Include="BaseEfExcuter.cs" />
