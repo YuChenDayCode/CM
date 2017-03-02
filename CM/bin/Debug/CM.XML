@@ -98,7 +98,7 @@
         </member>
         <member name="M:CMDB.CommonFunc.Resolve(System.Linq.Expressions.Expression)">
             <summary>
-            递归解析Lambda 生成对应SQL      不支持多条件，short
+            递归解析Lambda 生成对应SQL !bool bool 未解决
             </summary>
             <param name="express"></param>
             <returns></returns>

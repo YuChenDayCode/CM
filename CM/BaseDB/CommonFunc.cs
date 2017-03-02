@@ -189,6 +189,9 @@ namespace CMDB
             {
                 MemberExpression member = express as MemberExpression;
 
+                //DateTime.Now的情况
+                if (member.Type.Name == "DateTime") return "'" + Expression.Lambda<Func<DateTime>>(member).Compile()() + "'";
+
                 //普通字段
                 if (member.Expression.GetType().Name == "TypedParameterExpression")
                     return member.Expression.Type.Name + "." + member.Member.Name;
