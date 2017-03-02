@@ -1,0 +1,8 @@
+D:\github\CM\CM\bin\Debug\EntityFramework.dll
+D:\github\CM\CM\bin\Debug\CM.XML
+D:\github\CM\CM\bin\Debug\CM.dll
+D:\github\CM\CM\bin\Debug\CM.pdb
+D:\github\CM\CM\bin\Debug\Oracle.ManagedDataAccess.dll
+D:\github\CM\CM\obj\Debug\CMDB.csprojResolveAssemblyReference.cache
+D:\github\CM\CM\obj\Debug\CM.dll
+D:\github\CM\CM\obj\Debug\CM.pdb

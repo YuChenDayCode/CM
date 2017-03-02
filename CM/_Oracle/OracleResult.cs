@@ -81,10 +81,10 @@ namespace CMDB
         /// </summary>
         /// <param name="ocm"></param>
         /// <returns></returns>
-        public static bool SingleResult(OracleCommand cmd)
+        public static int SingleResult(OracleCommand cmd)
         {
             int i = cmd.ExecuteNonQuery();
-            return i > 0;
+            return i ;
         }
 
 
@@ -93,7 +93,7 @@ namespace CMDB
         /// </summary>
         /// <param name="cmd"></param>
         /// <returns></returns>
-        public static bool ManyResult(OracleCommand cmd)
+        public static int ManyResult(OracleCommand cmd)
         {
             #region 具体受影响行数
             //一般执行的多条直接返回成功返回-1 无法判断多条
@@ -111,7 +111,7 @@ namespace CMDB
             //    }
             //} 
             #endregion
-            return cmd.ExecuteNonQuery() == -1;
+            return cmd.ExecuteNonQuery();
         }
 
         #endregion

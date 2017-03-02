@@ -20,7 +20,7 @@ namespace CMDB
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public bool Add(T model)
+        public int Add(T model)
         {
             return CM.DB.Insert<T>(model);
         }
@@ -30,7 +30,7 @@ namespace CMDB
         /// </summary>
         /// <param name="models"></param>
         /// <returns></returns>
-        public bool Add(List<T> models)
+        public int Add(List<T> models)
         {
             return CM.DB.Insert<T>(models);
         }
@@ -52,7 +52,7 @@ namespace CMDB
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public bool Del(object Id)
+        public int Del(object Id)
         {
             return CM.DB.Delete<T>(Id);
         }
@@ -62,7 +62,7 @@ namespace CMDB
         /// </summary>
         /// <param name="express"></param>
         /// <returns></returns>
-        public bool Del(Expression<Func<T, bool>> express)
+        public int Del(Expression<Func<T, bool>> express)
         {
             return CM.DB.Delete<T>(express);
         }
@@ -72,7 +72,7 @@ namespace CMDB
         /// <summary> 
         /// 更新一条
         /// </summary> 
-        public bool Update(T model)
+        public int Update(T model)
         {
             return CM.DB.Update<T>(model);
         }
@@ -80,7 +80,7 @@ namespace CMDB
         /// <summary> 
         /// 批量更新
         /// </summary> 
-        public bool Update(List<T> models)
+        public int Update(List<T> models)
         {
             return CM.DB.Update<T>(models);
         }

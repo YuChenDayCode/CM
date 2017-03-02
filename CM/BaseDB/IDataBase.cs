@@ -37,7 +37,7 @@ namespace CMDB
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
         /// <returns>是否成功</returns>
-        bool Insert<T>(T t);
+        int Insert<T>(T t);
 
         /// <summary>
         ///插入一条数据，并返回插入数据的自增主键（ID）
@@ -53,7 +53,7 @@ namespace CMDB
         /// <typeparam name="T"></typeparam>
         /// <param name="t">实体数组</param>
         /// <returns>是否插入成功</returns>
-        bool Insert<T>(List<T> t);
+        int Insert<T>(List<T> t);
 
 
 
@@ -63,7 +63,7 @@ namespace CMDB
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
         /// <returns></returns>
-        bool Update<T>(T t);
+        int Update<T>(T t);
 
         /// <summary>
         /// 更新多条
@@ -71,7 +71,7 @@ namespace CMDB
         /// <typeparam name="T"></typeparam>
         /// <param name="t">实体数组</param>
         /// <returns></returns>
-        bool Update<T>(List<T> t);
+        int Update<T>(List<T> t);
 
 
 
@@ -80,7 +80,7 @@ namespace CMDB
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        bool Delete<T>();
+        int Delete<T>();
 
         /// <summary>
         /// 根据主键删除
@@ -88,7 +88,7 @@ namespace CMDB
         /// <typeparam name="T"></typeparam>
         /// <param name="Value">主键值</param>
         /// <returns></returns>
-        bool Delete<T>(object Value);
+        int Delete<T>(object Value);
 
         /// <summary>
         /// 删除一条,Model中有主键即可
@@ -96,7 +96,7 @@ namespace CMDB
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
         /// <returns></returns>
-        bool Delete<T>(T t);
+        int Delete<T>(T t);
 
         /// <summary>
         /// 删除多条,Model中有主键即可
@@ -104,7 +104,7 @@ namespace CMDB
         /// <typeparam name="T"></typeparam>
         /// <param name="t">实体数组</param>
         /// <returns></returns>
-        bool Delete<T>(List<T> t);
+        int Delete<T>(List<T> t);
 
         /// <summary>
         /// 根据条件删除
@@ -112,7 +112,7 @@ namespace CMDB
         /// <typeparam name="T">实体</typeparam>
         /// <param name="express">条件</param>
         /// <returns></returns>
-        bool Delete<T>(Expression<Func<T, bool>> express) where T : new();
+        int Delete<T>(Expression<Func<T, bool>> express) where T : new();
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -109,176 +110,121 @@ namespace CMDB
         #endregion
 
         #region Func<T,bool>
+
         /// <summary>
-        /// 递归解析Lambda 生成对应SQL
+        /// 递归解析Lambda 生成对应SQL !bool bool 未解决
         /// </summary>
         /// <param name="express"></param>
         /// <returns></returns>
         public static string Resolve(Expression express)
         {
-            if (express is BinaryExpression)//但条件普通等式或多条件
+            #region 解析
+            //二元表达式，比如a.id == 1
+            if (express is BinaryExpression)
             {
                 BinaryExpression binary = express as BinaryExpression;
 
-                /*************多条件***************/
-                if (binary.Left is BinaryExpression)
-                {
-                    string _Field = Resolve(binary.Left);
-                    string _Operators = ExpressTypeToStr(binary.NodeType);
-                    object _Value = Resolve(binary.Right);
-
-                    //多条件时判断 是否加括号
-                    _Field = AddBrackets(_Field).ToString();
-                    _Value = AddBrackets(_Value);
-
-                    StringBuilder sb = new StringBuilder();
-                    sb.Append(" " + _Field + " " + _Operators + " " + _Value);
-                    return sb.ToString();
-                }
-
-                if (binary.Left is MemberExpression) //普通的等式或不等式条件
-                {
-                    MemberExpression me = (binary.Left as MemberExpression);
-                    string _Field = me.Type == typeof(bool) ? me.Member.Name + " = 'true'" : me.Member.Name; //多条件 t.IsOk的情况
-                    string _Operators = ExpressTypeToStr(binary.NodeType);
-                    object _Value = null;
-                    if (binary.Right is ConstantExpression || binary.Right is UnaryExpression || (binary.Right as MemberExpression).Expression is ConstantExpression)
-                        _Value = getValue(binary.Right);
-                    else
-                        _Value = Resolve(binary.Right);
-
-                    //多条件时判断 是否加括号
-                    _Field = AddBrackets(_Field).ToString();
-                    _Value = AddBrackets(_Value);
-
-                    StringBuilder sb = new StringBuilder();
-                    sb.Append(" " + _Field + " " + _Operators + " " + _Value);
-                    return sb.ToString();
-                }
-
-                #region 特殊情况(多条件时递归 获得具体条件)
-                /*********************Contains之类方法*********************=>!t.IsOk*********/
-                if (binary.Left is MethodCallExpression || binary.Left is UnaryExpression)
-                {
-                    string _Field = Resolve(binary.Left);
-                    string _Operators = ExpressTypeToStr(binary.NodeType);
-                    object _Value = Resolve(binary.Right);
-
-                    //多条件时判断 是否加括号
-                    _Field = AddBrackets(_Field).ToString();
-                    _Value = AddBrackets(_Value);
-
-                    return " " + _Field + " " + _Operators + " " + _Value;
-
-                }
-                #endregion
-
+                string _Field = Resolve(binary.Left);
+                string _Operators = ExpressTypeToStr(binary.NodeType);
+                object _Value = Resolve(binary.Right);
+                return _Field + " " + _Operators + " " + _Value;
             }
 
+            //一元表达式 Convert(num)
+            if (express is UnaryExpression)
+            {
+                UnaryExpression unary = express as UnaryExpression;
+                string unarystr = Resolve(unary.Operand);
+                string _Operators = ExpressTypeToStr(express.NodeType);
 
+                return _Operators + " " + unarystr;
+            }
 
-            #region 特殊情况解析
-            if (express is MethodCallExpression) //Contains之类方法
+            //常量表达式 True,1,2,3
+            if (express is ConstantExpression)
+            {
+                ConstantExpression constant = express as ConstantExpression;
+
+                if (constant.Type.Name == "String" || constant.Type.Name == "DateTime")
+                    return "'" + constant.Value.ToString() + "'";
+                else if (constant.Type.Name == "Boolean")
+                    return "'" + constant.Value.ToString().ToLower() + "'";
+                else
+                    return constant.Value.ToString();
+            }
+
+            //函数表达式 Contains之类方法
+            if (express is MethodCallExpression)
             {
                 MethodCallExpression methodcall = express as MethodCallExpression;
                 string MethodName = methodcall.Method.Name;
+                if (MethodName == "ToString") return Resolve(methodcall.Object);
+
+                #region Contains的in
+                if (MethodName == "Contains" && methodcall.Object.Type.Name != "String")
+                {
+                    string _tempField = Resolve(methodcall.Arguments[0]);
+
+                    var _tempList = Expression.Lambda<Func<object>>(methodcall.Object).Compile()() as IList;
+                    var list = (from object i in _tempList select "'" + i + "'").ToList();
+                    return _tempField + " in (" + string.Join(",", list.Cast<string>().ToArray()) + ") ";
+                }
+                #endregion
+
+                string _Field = Resolve(methodcall.Object);
+                Expression argument = methodcall.Arguments[0];
+                string _likeValue = Resolve(argument);
+                _likeValue = _likeValue.Replace("'", ""); //移除默认加的单引号
+
                 if (MethodName == "Contains")
-                {
-                    string _Field = (methodcall.Object as MemberExpression).Member.Name;
-                    Expression argument = methodcall.Arguments[0];
-                    string _likeValue = getValue(argument).ToString();
-                    _likeValue = _likeValue.Replace("'", ""); //移除默认加的单引号
-                    return " " + _Field + " like " + "'%" + _likeValue + "%'";
-                }
+                    return _Field + " like " + "'%" + _likeValue + "%'";
                 if (MethodName == "StartsWith")
-                {
-                    string _Field = (methodcall.Object as MemberExpression).Member.Name;
-                    Expression argument = methodcall.Arguments[0];
-                    string _likeValue = getValue(argument).ToString();
-                    _likeValue = _likeValue.Replace("'", "");
-                    return " " + _Field + " like " + "'" + _likeValue + "%'";
-                }
-
+                    return _Field + " like " + "'" + _likeValue + "%'";
                 if (MethodName == "EndsWith")
+                    return _Field + " like " + "'%" + _likeValue + "'";
+            }
+
+            //成员表达式，一般为变量，比如a.id
+            if (express is MemberExpression)
+            {
+                MemberExpression member = express as MemberExpression;
+
+                //普通字段
+                if (member.Expression.GetType().Name == "TypedParameterExpression")
+                    return member.Expression.Type.Name + "." + member.Member.Name;
+
+                //值
+                switch (member.Type.Name)
                 {
-                    string _Field = (methodcall.Object as MemberExpression).Member.Name;
-                    Expression argument = methodcall.Arguments[0];
-                    string _likeValue = getValue(argument).ToString();
-                    _likeValue = _likeValue.Replace("'", "");
-                    return " " + _Field + " like " + "'%" + _likeValue + "'";
+                    case "Int16":
+                        return Expression.Lambda<Func<short>>(member).Compile()().ToString();
+                    case "Int32":
+                        return Expression.Lambda<Func<int>>(member).Compile()().ToString();
+                    case "Int64":
+                        return Expression.Lambda<Func<long>>(member).Compile()().ToString();
+                    case "Double":
+                        return Expression.Lambda<Func<double>>(member).Compile()().ToString();
+                    case "Decimal":
+                        return Expression.Lambda<Func<decimal>>(member).Compile()().ToString();
+                    case "String":
+                        return "'" + Expression.Lambda<Func<string>>(member).Compile()() + "'";
+                    case "DateTime":
+                        return "'" + Expression.Lambda<Func<DateTime>>(member).Compile()() + "'";
+                    default:
+                        return Expression.Lambda<Func<object>>(member).Compile()().ToString();
                 }
 
-
-            }
-            if (express is MemberExpression) //=>t.IsOk
-            {
-                string _Field = (express as MemberExpression).Member.Name;
-                string _Operators = "=";
-                object _Value = "'true'";
-                return " " + _Field + " " + _Operators + " " + _Value;
-            }
-            if (express is UnaryExpression)//=>!t.IsOk
-            {
-                UnaryExpression unary = express as UnaryExpression;
-                if (unary.Operand is MemberExpression)
-                {
-                    string _Field = (unary.Operand as MemberExpression).Member.Name;
-                    string _Operators = ExpressTypeToStr(express.NodeType);
-                    object _Value = "'true'";
-                    return " " + _Field + " " + _Operators + " " + _Value;
-                }
             }
             #endregion
-
 
             throw new Exception("无法解析该表达式：" + express);
         }
 
         /// <summary>
-        /// 加括号
+        /// 替换为sql的符号
         /// </summary>
-        /// <param name="_obj"></param>
+        /// <param name="et"></param>
         /// <returns></returns>
-        public static object AddBrackets(object _obj)
-        {
-            string _str = _obj.ToString();
-            if (_str.Contains("or") || _str.Contains("and")) { }
-            // return "(" + _obj + ")";
-
-            return _obj;
-        }
-
-        public static object getValue(Expression express)
-        {
-            object _value = null;
-            if (express is ConstantExpression)
-                _value = (express as ConstantExpression).Value;
-
-            else if (express is UnaryExpression)
-            {
-                LambdaExpression lambda = Expression.Lambda((express as UnaryExpression).Operand);
-                Delegate fn = lambda.Compile();
-                _value = fn.DynamicInvoke(null);
-            }
-            //解析变量值
-            else if ((express as MemberExpression).Expression is ConstantExpression)
-            {
-                MemberExpression memberexpress = express as MemberExpression;
-                object obj = (memberexpress.Expression as ConstantExpression).Value;
-                if (memberexpress.Member is FieldInfo)
-                    _value = (memberexpress.Member as FieldInfo).GetValue(obj);
-                else if (memberexpress.Member is PropertyInfo)
-                    _value = (memberexpress.Member as PropertyInfo).GetValue(obj);
-            }
-
-            if (_value == null) throw new Exception("无法解析该值：" + express);
-
-            Type valueType = _value.GetType();
-            if (valueType == typeof(string) || valueType == typeof(DateTime)) _value = "'" + _value + "'";
-            if (valueType == typeof(bool)) _value = "'" + _value.ToString().ToLower() + "'"; //....................bool ToString会自动大写首字母
-            return _value;
-        }
-
         public static string ExpressTypeToStr(ExpressionType et)
         {
             switch (et)
@@ -307,10 +253,15 @@ namespace CMDB
                     return ">";
                 case ExpressionType.GreaterThanOrEqual:
                     return ">=";
+                //case ExpressionType.Not:
+                //    return "not";
+                case ExpressionType.Convert:
+                    return "";
                 default:
                     throw new Exception("不支持" + et + "运算符查询");
             }
         }
+
         #endregion
     }
 }

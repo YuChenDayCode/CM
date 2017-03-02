@@ -16,11 +16,10 @@ namespace CMDB
         static CM() //静态构造函数，在执行完之后才回执行其他函数
         {
             string ConStr = System.Configuration.ConfigurationManager.AppSettings["ConStr"];//连接字符串
-            if (string.IsNullOrEmpty(ConStr))
-                throw new Exception("请在配置文件中添加节点ConStr，值为连接字符串");
+           
             string ConType = System.Configuration.ConfigurationManager.AppSettings["ConType"];//连接类
             if (string.IsNullOrEmpty(ConType))
-                throw new Exception("请在配置文件中添加节点ConType，值为数据了类型，Sql或Oracle");
+                if (string.IsNullOrEmpty(ConType)) ConType = "Sql";
 
             ConType = "CMDB." + ConType + "Operate";
             object[] para = { ConStr };

@@ -67,7 +67,7 @@ namespace CMDB
         #endregion
 
         #region 插入
-        public override bool Insert<T>(T t)
+        public override int Insert<T>(T t)
         {
             using (SqlConnection sct = new SqlConnection(Constring))
             {
@@ -93,7 +93,7 @@ namespace CMDB
             }
         }
 
-        public override bool Insert<T>(List<T> t)
+        public override int Insert<T>(List<T> t)
         {
             using (SqlConnection sct = new SqlConnection(Constring))
             {
@@ -108,7 +108,7 @@ namespace CMDB
         #endregion
 
         #region 更新
-        public override bool Update<T>(T t)
+        public override int Update<T>(T t)
         {
             using (SqlConnection sct = new SqlConnection(Constring))
             {
@@ -121,7 +121,7 @@ namespace CMDB
             }
         }
 
-        public override bool Update<T>(List<T> t)
+        public override int Update<T>(List<T> t)
         {
             using (SqlConnection sct = new SqlConnection(Constring))
             {
@@ -136,7 +136,7 @@ namespace CMDB
         #endregion
 
         #region 删除
-        public override bool Delete<T>()
+        public override int Delete<T>()
         {
             using (SqlConnection sct = new SqlConnection(Constring))
             {
@@ -149,7 +149,7 @@ namespace CMDB
             }
         }
 
-        public override bool Delete<T>(object Value)
+        public override int Delete<T>(object Value)
         {
             using (SqlConnection sct = new SqlConnection(Constring))
             {
@@ -162,7 +162,7 @@ namespace CMDB
             }
         }
 
-        public override bool Delete<T>(T t)
+        public override int Delete<T>(T t)
         {
             using (SqlConnection sct = new SqlConnection(Constring))
             {
@@ -175,7 +175,7 @@ namespace CMDB
             }
         }
 
-        public override bool Delete<T>(List<T> t)
+        public override int Delete<T>(List<T> t)
         {
             using (SqlConnection sct = new SqlConnection(Constring))
             {
@@ -187,7 +187,7 @@ namespace CMDB
                 }
             }
         }
-        public override bool Delete<T>(Expression<Func<T, bool>> express)
+        public override int Delete<T>(Expression<Func<T, bool>> express)
         {
             using (SqlConnection sct = new SqlConnection(Constring))
             {

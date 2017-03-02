@@ -90,10 +90,10 @@ namespace CMDB
         /// </summary>
         /// <param name="ocm"></param>
         /// <returns></returns>
-        public static bool Result(SqlCommand cmd)
+        public static int Result(SqlCommand cmd)
         {
             int i = cmd.ExecuteNonQuery();
-            return i > 0;
+            return i ;
         }
 
         #endregion

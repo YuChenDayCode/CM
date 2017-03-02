@@ -98,16 +98,16 @@
         </member>
         <member name="M:CMDB.CommonFunc.Resolve(System.Linq.Expressions.Expression)">
             <summary>
-            递归解析Lambda 生成对应SQL
+            递归解析Lambda 生成对应SQL      不支持多条件，short
             </summary>
             <param name="express"></param>
             <returns></returns>
         </member>
-        <member name="M:CMDB.CommonFunc.AddBrackets(System.Object)">
+        <member name="M:CMDB.CommonFunc.ExpressTypeToStr(System.Linq.Expressions.ExpressionType)">
             <summary>
-            加括号
+            替换为sql的符号
             </summary>
-            <param name="_obj"></param>
+            <param name="et"></param>
             <returns></returns>
         </member>
         <member name="T:CMDB.BaseEfExcuter`2">
