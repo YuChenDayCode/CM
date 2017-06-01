@@ -98,7 +98,7 @@ namespace CMDB
                 if (pi != null)
                 {
                     sb.Append(pi.Name + ",");
-                    object value = pi.GetValue(t);
+                    object value = pi.GetValue(t,null);
                     value = CommonFunc.UnInjection(value);
                     if (value != null &&
                         (value.GetType() == typeof(int) || value.GetType() == typeof(decimal) || value.GetType() == typeof(double) || value.GetType() == typeof(long) || value.GetType() == typeof(float)))
@@ -162,7 +162,7 @@ namespace CMDB
             {
                 if (pi != null)
                 {
-                    object value = pi.GetValue(t);//字段对应的值
+                    object value = pi.GetValue(t,null);//字段对应的值
                     #region 主键
                     object[] obj = pi.GetCustomAttributes(false);//取特性
                     if (obj.Count() > 0)
@@ -257,7 +257,7 @@ namespace CMDB
             {
                 if (pi != null)
                 {
-                    object value = pi.GetValue(t);//字段对应的值
+                    object value = pi.GetValue(t,null);//字段对应的值
 
                     object[] obj = pi.GetCustomAttributes(false);
                     if (obj.Count() > 0)

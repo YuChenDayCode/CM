@@ -98,118 +98,16 @@
         </member>
         <member name="M:CMDB.CommonFunc.Resolve(System.Linq.Expressions.Expression)">
             <summary>
-            递归解析Lambda 生成对应SQL      不支持多条件，short
+            递归解析Lambda 生成对应SQL !bool bool 未解决
             </summary>
             <param name="express"></param>
             <returns></returns>
         </member>
-        <member name="M:CMDB.CommonFunc.CheckExpType(System.Linq.Expressions.Expression)">
+        <member name="M:CMDB.CommonFunc.ExpressTypeToStr(System.Linq.Expressions.ExpressionType)">
             <summary>
-            获得表达式类型
+            替换为sql的符号
             </summary>
-            <param name="express"></param>
-            <returns></returns>
-        </member>
-        <member name="M:CMDB.CommonFunc.AddBrackets(System.Object)">
-            <summary>
-            加括号
-            </summary>
-            <param name="_obj"></param>
-            <returns></returns>
-        </member>
-        <member name="T:CMDB.BaseEfExcuter`2">
-            <summary>
-            EF帮助类
-            </summary>
-            <typeparam name="TContext">上下文对象</typeparam>
-            <typeparam name="TEntity">T</typeparam>
-        </member>
-        <member name="M:CMDB.BaseEfExcuter`2.Add(`1)">
-            <summary>
-            新增一条
-            </summary>
-            <param name="entity">要插入的Model</param>
-            <returns></returns>
-        </member>
-        <member name="M:CMDB.BaseEfExcuter`2.AddReturnT(`1)">
-            <summary>
-            返回当前新增的记录
-            </summary>
-            <param name="entity">要插入的Model</param>
-            <returns></returns>
-        </member>
-        <member name="M:CMDB.BaseEfExcuter`2.Delete(`1)">
-            <summary>
-            删除单条（对应主键删除）
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:CMDB.BaseEfExcuter`2.Delete(System.Linq.Expressions.Expression{System.Func{`1,System.Boolean}})">
-            <summary>
-            根据条件删除
-            </summary>
-            <param name="expression">Lambda</param>
-            <returns></returns>
-        </member>
-        <member name="M:CMDB.BaseEfExcuter`2.Update(`1)">
-            <summary>
-            更新
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:CMDB.BaseEfExcuter`2.Updates(System.Linq.Expressions.Expression{System.Func{`1,System.Boolean}},System.Action{`1})">
-            <summary>
-            批量更新,目前只能更新单个字段Action问题
-            </summary>
-            <param name="expression"></param>
-            <param name="updateExpression"></param>
-            <returns></returns>
-        </member>
-        <member name="M:CMDB.BaseEfExcuter`2.GetModel(System.Linq.Expressions.Expression{System.Func{`1,System.Boolean}})">
-            <summary>
-            查询单条
-            </summary>
-            <param name="expression"></param>
-            <returns></returns>
-        </member>
-        <member name="M:CMDB.BaseEfExcuter`2.GetModels">
-            <summary>
-            查询全部
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:CMDB.BaseEfExcuter`2.GetModels``1(System.Int32,System.Int32,System.Int32@,System.Boolean,System.Func{`1,``0})">
-            <summary>
-            查询全部（分页）
-            </summary>
-            <typeparam name="S"></typeparam>
-            <param name="pageIndex">当前页数</param>
-            <param name="pageSize">每页条数</param>
-            <param name="total">总条数</param>
-            <param name="IsDesc">是否降序</param>
-            <param name="orderLambda">排序字段</param>
-            <returns></returns>
-        </member>
-        <member name="M:CMDB.BaseEfExcuter`2.GetModels(System.Linq.Expressions.Expression{System.Func{`1,System.Boolean}})">
-            <summary>
-            根据条件查询
-            </summary>
-            <param name="expression"></param>
-            <returns></returns>
-        </member>
-        <member name="M:CMDB.BaseEfExcuter`2.GetModels``1(System.Linq.Expressions.Expression{System.Func{`1,System.Boolean}},System.Int32,System.Int32,System.Int32@,System.Boolean,System.Func{`1,``0})">
-            <summary>
-            分根据条件查询（分页）
-            </summary>
-            <typeparam name="S"></typeparam>
-            <param name="expression">查询条件</param>
-            <param name="pageIndex">当前页数</param>
-            <param name="pageSize">每页条数</param>
-            <param name="total">总条数</param>
-            <param name="IsDesc">是否降序</param>
-            <param name="orderLambda">排序字段</param>
+            <param name="et"></param>
             <returns></returns>
         </member>
         <member name="T:CMDB.CM">
@@ -220,7 +118,7 @@
         <member name="P:CMDB.CM.DB">
             <summary>
             <para>方法：</para>
-            <para>●查询Select()：查询所有，根据主键、Linq条件查询</para>
+            <para>●查询Select()：查询所有，根据主键、Linq条件查询(数组.Contains()=in,字符串.Contains()=模糊查询)</para>
             <para>●插入Insert()：插入一条、多条</para>
             <para>●插入一条返回主键 InsertReturnId()</para>
             <para>●更新Update()：更新一条、多条</para>
@@ -262,6 +160,14 @@
             </summary>
             <typeparam name="T"></typeparam>
             <returns>返回所有数据</returns>
+        </member>
+        <member name="M:CMDB.IDataBase.Select``1(System.String)">
+            <summary>
+            根据sql查询
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <returns></returns>
         </member>
         <member name="M:CMDB.IDataBase.Select``1(System.Object)">
             <summary>

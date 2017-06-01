@@ -8,73 +8,93 @@
 
 
 <script type="text/javascript">
-    $(function () {
-        $('#table').delegate('td span input', 'keyup', function (e) {
-            console.profile('test')
-            var $tr = $(this).parents('tr');
-            var $b = $tr.find('b')
-            var ji = 1;
-            $tr.find('input[class="textbox-text validatebox-text"]').each(function (index, item) {
-                ji = parseInt($(item).val()) * ji;
-            });
-            $b.html(ji);
-            console.profileEnd('text');
-        });
-    })
 
-    function calc(obj, val) {
-        var $input = $($(obj).parent().parent().find("input").eq(0));
-        var tbVal = parseInt($input.val());
-        $input.val(tbVal + val);
-    }
+    var name = "the name";
+    var object = {
+
+        name: "xj",
+
+        myfunc: function () {
+            alert(this.name);
+            return test = function () {
+                return this.name;
+            }
+            // alert(test());
+        }
+    };
+
+    alert(object.myfunc()());
+    //$(function () {
+    //    $('#table').delegate('td span input', 'keyup', function (e) {
+    //        console.profile('test')
+    //        var $tr = $(this).parents('tr');
+    //        var $b = $tr.find('b')
+    //        var ji = 1;
+    //        $tr.find('input[class="textbox-text validatebox-text"]').each(function (index, item) {
+    //            ji = parseInt($(item).val()) * ji;
+    //        });
+    //        $b.html(ji);
+    //        console.profileEnd('text');
+    //    });
+    //})
+
+
+
+
+    //function calc(obj, val) {
+    //    var $input = $($(obj).parent().parent().find("input").eq(0));
+    //    var tbVal = parseInt($input.val());
+    //    $input.val(tbVal + val);
+    //}
 </script>
 <div>
 
-    @using(Html.BeginForm("Index", "Home", FormMethod.Post)){
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
 
-    <table id="table">
-        <tr>
-            <td>
-                单价：<input class="easyui-textbox" value="0" />
-            </td>
-            <td>
-                <input type="button" onclick="calc(this, 1)" value="+" />
-                <input type="button" onclick=" calc(this, -1)" value="-" />
-            </td>
-            <td>
-                数量：<input class="easyui-textbox" value="0" />
-                总价：<b></b>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                单价：<input class="easyui-textbox" value="0" />
-            </td>
-            <td>
-                <input type="button" onclick="calc(this, 1)" value="+" />
-                <input type="button" onclick="calc(this, -1)" value="-" />
-            </td>
-            <td>
-                数量：<input class="easyui-textbox" value="0" />
-                总价：
-                <b></b>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                单价：<input class="easyui-textbox" value="0" />
-            </td>
-            <td>
-                <input type="button" onclick="calc(this, 1)" value="+" />
-                <input type="button" onclick="calc(this, -1)" value="-" />
-            </td>
-            <td>
-                数量：<input class="easyui-textbox" value="0" />
-                总价：
-                <b></b>
-            </td>
-        </tr>
-    </table>
+        <table id="table">
+            <tr>
+                <td>
+                    单价：<input class="easyui-textbox" value="0" />
+                </td>
+                <td>
+                    <input type="button" onclick="calc(this, 1)" value="+" />
+                    <input type="button" onclick=" calc(this, -1)" value="-" />
+                </td>
+                <td>
+                    数量：<input class="easyui-textbox" value="0" />
+                    总价：<b></b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    单价：<input class="easyui-textbox" value="0" />
+                </td>
+                <td>
+                    <input type="button" onclick="calc(this, 1)" value="+" />
+                    <input type="button" onclick="calc(this, -1)" value="-" />
+                </td>
+                <td>
+                    数量：<input class="easyui-textbox" value="0" />
+                    总价：
+                    <b></b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    单价：<input class="easyui-textbox" value="0" />
+                </td>
+                <td>
+                    <input type="button" onclick="calc(this, 1)" value="+" />
+                    <input type="button" onclick="calc(this, -1)" value="-" />
+                </td>
+                <td>
+                    数量：<input class="easyui-textbox" value="0" />
+                    总价：
+                    <b></b>
+                </td>
+            </tr>
+        </table>
 
     }
 </div>

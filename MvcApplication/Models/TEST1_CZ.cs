@@ -8,9 +8,13 @@ namespace MvcApplication.Models
 {
     public class TEST1_CZ
     {
-        [Col_(IsPrimaryKey = true)]
-        public int ID { get; set; }
+        [Col_(IsPrimaryKey = true, IsIdentity = true)]
+        public int id { get; set; }
 
         public string COLUMN1 { get; set; }
+
+        public int? intss { get; set; }
+
+        public int? intsss { get; set; }
     }
 }

@@ -14,6 +14,14 @@ namespace CMDB
         List<T> Select<T>() where T : new();
 
         /// <summary>
+        /// 根据sql查询
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        List<T> Select<T>(string sql) where T : new();
+
+        /// <summary>
         /// 根据主键查询
         /// </summary>
         /// <typeparam name="T"></typeparam>

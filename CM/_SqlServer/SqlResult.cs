@@ -30,7 +30,7 @@ namespace CMDB
                 {
                     PropertyInfo pi = type.GetProperty(fieldname);
                     if (pi != null)
-                        pi.SetValue(model, value);
+                        pi.SetValue(model, value, null);
                 }
             }
         }
@@ -93,7 +93,7 @@ namespace CMDB
         public static int Result(SqlCommand cmd)
         {
             int i = cmd.ExecuteNonQuery();
-            return i ;
+            return i;
         }
 
         #endregion

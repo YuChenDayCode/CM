@@ -93,7 +93,6 @@ D:\github\CM\MvcApplication\bin\System.Web.Razor.dll
 D:\github\CM\MvcApplication\bin\System.Web.WebPages.Deployment.dll
 D:\github\CM\MvcApplication\bin\System.Web.WebPages.dll
 D:\github\CM\MvcApplication\bin\System.Web.WebPages.Razor.dll
-D:\github\CM\MvcApplication\bin\EntityFramework.dll
 D:\github\CM\MvcApplication\bin\Oracle.ManagedDataAccess.dll
 D:\github\CM\MvcApplication\bin\CM.pdb
 D:\github\CM\MvcApplication\bin\CM.xml

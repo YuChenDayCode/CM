@@ -11,6 +11,8 @@ namespace CMDB
 
         public abstract List<T> Select<T>() where T : new();
 
+        public abstract List<T> Select<T>(string sql) where T : new();
+
         public abstract T Select<T>(object Value) where T : new();
 
         public abstract List<T> Select<T>(Expression<Func<T, bool>> express) where T : new();
@@ -39,5 +41,7 @@ namespace CMDB
         public abstract int Delete<T>(List<T> t);
 
         public abstract int Delete<T>(Expression<Func<T, bool>> express) where T : new();
+
+       
     }
 }

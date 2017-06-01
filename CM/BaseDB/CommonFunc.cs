@@ -147,6 +147,8 @@ namespace CMDB
 
                 if (constant.Type.Name == "String" || constant.Type.Name == "DateTime")
                     return "'" + constant.Value.ToString() + "'";
+                else if (constant.Type.Name == "Nullable`1")
+                    return "null";
                 else if (constant.Type.Name == "Boolean")
                     return "'" + constant.Value.ToString().ToLower() + "'";
                 else

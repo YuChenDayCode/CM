@@ -19,20 +19,32 @@ namespace MvcApplication.Controllers
 
         public ActionResult Index()
         {
+
+
+
+           
             // try
             //{
-          
-            List<TEST1_CZ> a = CM.DB.Select<TEST1_CZ>(t => t.COLUMN1.Contains("1") && t.ID == 1);
 
-            a.OrderBy(t => t.ID);
+            List<TEST1_CZ> a = CM.DB.Select<TEST1_CZ>("select * from TEST1_CZ");
+            List<TEST1_CZ> aa = CM.DB.Select<TEST1_CZ>();
+           a.OrderBy(t => t.id);
 
-            return null;
-            
+
             //
             // catch (Exception e) { }
+            TEST1_CZ aabc = new TEST1_CZ()
+            {
+                id = 1,
+                COLUMN1 = "内容1"
+            };
+
+            //CM.DB.Update(aabc);
+
 
             TEST1_CZ aab = new TEST1_CZ()
             {
+
                 COLUMN1 = "内容1"
             };
 
@@ -58,7 +70,7 @@ namespace MvcApplication.Controllers
             tc1.Item = 10;
             tc1.OperateTime = DateTime.Now;
 
-
+            return View();
 
             try
             {
@@ -96,7 +108,7 @@ namespace MvcApplication.Controllers
                     Verify = 1
                 };
                 //bool aa = CM.DB.Insert(sui);
-                string aa = "admin";
+           
                 int i = 1;
                 List<SY_User> list = CM.DB.Select<SY_User>(m => m.LoginType == i);
 
@@ -106,7 +118,6 @@ namespace MvcApplication.Controllers
 
             }
 
-            return View();
         }
 
     }

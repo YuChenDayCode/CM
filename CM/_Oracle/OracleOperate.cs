@@ -35,6 +35,19 @@ namespace CMDB
             }
         }
 
+        public override List<T> Select<T>(string sql)
+        {
+            using (OracleConnection sct = new OracleConnection(Constring))
+            {
+                sct.Open();
+                ics = new SelectSql();
+                using (IDataReader idr = OracleSql.GetDtReader(sql, sct))
+                {
+                    return SqlResult.ValueToList<T>(idr);
+                }
+            }
+        }
+
         //根据主键查询
         public override T Select<T>(object Value)
         {
