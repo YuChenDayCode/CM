@@ -1,25 +1,34 @@
 # CM
-CMDB/ORM
+## CMDB/ORM
 
- * Ö§³ÖOracle¡¢SqlServerÊı¾İ¿â
-       ¸ù¾İÅäÖÃÎÄ¼şÊ¶±ğ
-       --<add key="ConStr" value="Data Source=.;Initial Catalog=TestDB;User ID=sa;PassWord=123456" /> <add key="ConType" value="Sql"/>
+ * æ”¯æŒOracleã€SqlServeræ•°æ®åº“
+       æ ¹æ®é…ç½®æ–‡ä»¶è¯†åˆ«
+        <pre><code>```
+	<add key="ConStr" value="Data Source=.;Initial Catalog=DBName;User ID= ;PassWord= " />
+	<add key="ConType" value="Sql"/> ```
+	</pre></code>
+	 
 
-     ¡ñ²éÑ¯Select()£º²éÑ¯ËùÓĞ£¬¸ù¾İÖ÷¼ü¡¢LinqÌõ¼ş²éÑ¯(Êı×é.Contains()=in,×Ö·û´®.Contains()=Ä£ºı²éÑ¯)
-     ¡ñ²åÈëInsert()£º²åÈëÒ»Ìõ¡¢¶àÌõ
-     ¡ñ²åÈëÒ»Ìõ·µ»ØÖ÷¼ü InsertReturnId()
-     ¡ñ¸üĞÂUpdate()£º¸üĞÂÒ»Ìõ¡¢¶àÌõ
-     ¡ñÉ¾³ıDelete()£ºÇå¿Õ±í£¬É¾³ı¡¢É¾³ı¶àÌõ£¬¸ù¾İÖ÷¼ü¡¢LinqÌõ¼şÉ¾³ı
-     ¡ùÇë×¢ÒâÃ¿¸ö·½·¨¶¼ÊÇ·ºĞÍ·½·¨£¬TÀàĞÍĞèÓë±íÃûÏàÍ¬
+* æŸ¥è¯¢Select()ï¼šæŸ¥è¯¢æ‰€æœ‰ï¼Œæ ¹æ®ä¸»é”®ã€Linqæ¡ä»¶æŸ¥è¯¢(æ•°ç»„.Contains()=in,å­—ç¬¦ä¸².Contains()=æ¨¡ç³ŠæŸ¥è¯¢)
+* æ’å…¥Insert()ï¼šæ’å…¥ä¸€æ¡ã€å¤šæ¡<
+* æ’å…¥ä¸€æ¡è¿”å›ä¸»é”® InsertReturnId()
+* æ›´æ–°Update()ï¼šæ›´æ–°ä¸€æ¡ã€å¤šæ¡
+* åˆ é™¤Delete()ï¼šæ¸…ç©ºè¡¨ï¼Œåˆ é™¤ã€åˆ é™¤å¤šæ¡ï¼Œæ ¹æ®ä¸»é”®ã€Linqæ¡ä»¶åˆ é™¤
+* CM.DB.Select<Test>(t => t.Content.StartsWith("1"));//æ¨¡ç³ŠåŒ¹é…ï¼Œä»¥è¯¥å­—ç¬¦ä¸²å¼€å¤´çš„ 
+* CM.DB.Select<Test>(t => t.Content.EndsWith("2")); //æ¨¡ç³ŠåŒ¹é…ï¼Œä»¥è¯¥å­—ç¬¦ä¸²ç»“å°¾çš„
+* CM.DB.Select<Test>(t => t.Content.Contains("1")); //æ¨¡ç³ŠåŒ¹é…ï¼Œä»»æ„ä½ç½®åŒ…å«è¯¥å­—ç¬¦ä¸²çš„ 
+<br> 
+
         
+    
+#### è°ƒç”¨ï¼š
+     å…¥å£ç±»CMè°ƒç”¨æ¥å£DB
+	 å¯¹åº”MODELéœ€å¼•ç”¨using CMDB;çš„åç§°ç©ºé—´ å¹¶åœ¨ä¸»é”®ä¸ŠåŠ å…¥ [Col_(IsPrimaryKey = true, IsIdentity = true)] 
 
- * LinqÖ§³ÖµÄÒ»Ôª¶ş´Î·½·¨£º
-     CM.DB.Select<Test>(t => t.Content.StartsWith("1"));//Ä£ºıÆ¥Åä£¬ÒÔ¸Ã×Ö·û´®¿ªÍ·µÄ
-     CM.DB.Select<Test>(t => t.Content.EndsWith("2")); //Ä£ºıÆ¥Åä£¬ÒÔ¸Ã×Ö·û´®½áÎ²µÄ
-     CM.DB.Select<Test>(t => t.Content.Contains("1")); //Ä£ºıÆ¥Åä£¬ÈÎÒâÎ»ÖÃ°üº¬¸Ã×Ö·û´®µÄ
+## æ‰€æœ‰æ•°å­—ç±»å‹çš†éœ€è®¾ç½®ä¸ºå¯ä¸ºç©ºï¼Œæ–¹ä¾¿æ›´æ–° 
+## è¯·æ³¨æ„æ¯ä¸ªæ–¹æ³•éƒ½æ˜¯æ³›å‹æ–¹æ³•ï¼ŒTç±»å‹éœ€ä¸è¡¨åç›¸åŒ
 
- *µ÷ÓÃ£º
-     Èë¿ÚÀàCMµ÷ÓÃ½Ó¿ÚDB
-	 ¶ÔÓ¦MODELĞèÒıÓÃusing CMDB;µÄÃû³Æ¿Õ¼ä ²¢ÔÚÖ÷¼üÉÏ¼ÓÈë [Col_(IsPrimaryKey = true, IsIdentity = true)] 
 
-ËùÓĞÊı×ÖÀàĞÍ½ÔĞèÉèÖÃÎª¿ÉÎª¿Õ£¬·½±ã¸üĞÂ
+
+
+# [æˆ‘çš„åšå®¢](http://write.blog.csdn.net/postlist "CSDN")  
