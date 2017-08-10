@@ -77,6 +77,19 @@ namespace CMDB
                 }
             }
         }
+
+        public override object Select(string sql)
+        {
+            using (SqlConnection sct = new SqlConnection(Constring))
+            {
+                sct.Open();
+
+                using (SqlCommand scmd = new SqlCommand(sql, sct))
+                {
+                    return SqlResult.returnObject(scmd);
+                }
+            }
+        }
         #endregion
 
         #region 插入
@@ -128,6 +141,19 @@ namespace CMDB
                 sct.Open();
                 ics = new UpdateSql();
                 using (SqlCommand scmd = new SqlCommand(ics.CreateSql<T>(t), sct))
+                {
+                    return SqlResult.Result(scmd);
+                }
+            }
+        }
+
+        public override int Update(string sql)
+        {
+            using (SqlConnection sct = new SqlConnection(Constring))
+            {
+                sct.Open();
+                UpdateSql us = new UpdateSql();
+                using (SqlCommand scmd = new SqlCommand(sql, sct))
                 {
                     return SqlResult.Result(scmd);
                 }
@@ -212,6 +238,10 @@ namespace CMDB
                 }
             }
         }
+
+
+
+
         #endregion
     }
 }

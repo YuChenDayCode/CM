@@ -63,6 +63,19 @@ namespace CMDB
             }
         }
 
+        public override object Select(string sql)
+        {
+            using (OracleConnection sct = new OracleConnection(Constring))
+            {
+                sct.Open();
+
+                using (OracleCommand scmd = new OracleCommand(sql, sct))
+                {
+                    return OracleResult.returnObject(scmd);
+                }
+            }
+        }
+
 
         public override List<T> Select<T>(Expression<Func<T, bool>> express)
         {
@@ -125,6 +138,19 @@ namespace CMDB
                 }
             }
         }
+        public override int Update(string sql)
+        {
+            using (OracleConnection oct = new OracleConnection(Constring))
+            {
+                oct.Open();
+                ics = new UpdateOql();
+                using (OracleCommand ocm = new OracleCommand(sql, oct))
+                {
+                    return OracleResult.SingleResult(ocm);
+                }
+            }
+        }
+
 
         public override int Update<T>(List<T> t)
         {
@@ -204,7 +230,6 @@ namespace CMDB
                 }
             }
         }
-
         #endregion
     }
 }

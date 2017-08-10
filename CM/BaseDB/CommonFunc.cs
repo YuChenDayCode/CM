@@ -173,6 +173,34 @@ namespace CMDB
                 }
                 #endregion
 
+                if (MethodName == "Parse")// && express.Type == typeof(Guid))
+                {
+                    switch (methodcall.Type.Name)
+                    {
+                        case "Int16":
+                            return Expression.Lambda<Func<short>>(methodcall).Compile()().ToString();
+                        case "Int32":
+                            return Expression.Lambda<Func<int>>(methodcall).Compile()().ToString();
+                        case "Int64":
+                            return Expression.Lambda<Func<long>>(methodcall).Compile()().ToString();
+                        case "Double":
+                            return Expression.Lambda<Func<double>>(methodcall).Compile()().ToString();
+                        case "Decimal":
+                            return Expression.Lambda<Func<decimal>>(methodcall).Compile()().ToString();
+                        case "String":
+                            return "'" + Expression.Lambda<Func<string>>(methodcall).Compile()() + "'";
+                        case "DateTime":
+                            return "'" + Expression.Lambda<Func<DateTime>>(methodcall).Compile()() + "'";
+                        case "Guid":
+                                return "'" + BitConverter.ToString(Expression.Lambda<Func<Guid>>(methodcall).Compile()().ToByteArray()).ToString().Replace("-", "") + "'";
+                        default:
+                            return Expression.Lambda<Func<object>>(methodcall).Compile()().ToString();
+                    }
+                }
+
+                //    return Resolve(methodcall.Arguments[0]);
+                //}
+
                 string _Field = Resolve(methodcall.Object);
                 Expression argument = methodcall.Arguments[0];
                 string _likeValue = Resolve(argument);

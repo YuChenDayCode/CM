@@ -17,6 +17,8 @@ namespace CMDB
 
         public abstract List<T> Select<T>(Expression<Func<T, bool>> express) where T : new();
 
+        public abstract object Select(string sql);
+
 
         public abstract int Insert<T>(T t);
 
@@ -27,6 +29,8 @@ namespace CMDB
 
 
         public abstract int Update<T>(T t);
+
+        public abstract int Update(string sql);
 
         public abstract int Update<T>(List<T> t);
 

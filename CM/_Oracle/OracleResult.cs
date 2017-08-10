@@ -25,7 +25,7 @@ namespace CMDB
             for (int i = 0; i < _counts; i++)
             {
                 string fieldname = reader.GetName(i);
-                object value = reader[i];
+                object value = reader[i].GetType().Name == "Byte[]" ? new Guid((byte[])reader[i]) : reader[i];
                 if (value != null && !Convert.IsDBNull(value))
                 {
                     PropertyInfo pi = type.GetProperty(fieldname);
@@ -34,6 +34,7 @@ namespace CMDB
                 }
             }
         }
+
 
         /// <summary>
         /// 单条数据返会model
@@ -71,6 +72,17 @@ namespace CMDB
                 model = (T)Activator.CreateInstance(model.GetType());//重新创建实体对象
             }
             return list;
+        }
+
+
+        /// <summary>
+        /// 返回单个字段
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <returns></returns>
+        public static object returnObject(OracleCommand cmd)
+        {
+            return cmd.ExecuteScalar();
         }
 
         #endregion

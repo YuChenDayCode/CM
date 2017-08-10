@@ -37,6 +37,12 @@ namespace CMDB
         /// <returns></returns>
         List<T> Select<T>(Expression<Func<T, bool>> express) where T : new();
 
+        /// <summary>
+        /// 查询单个
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        object Select(string sql);
 
 
         /// <summary>
@@ -72,6 +78,14 @@ namespace CMDB
         /// <param name="t"></param>
         /// <returns></returns>
         int Update<T>(T t);
+
+        /// <summary>
+        /// 根据语句更新
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        int Update(string sql);
 
         /// <summary>
         /// 更新多条

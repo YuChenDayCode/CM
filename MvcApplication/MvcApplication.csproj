@@ -111,6 +111,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ERPNForm.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\SY_User.cs" />
     <Compile Include="Models\SY_UserInfo.cs" />
     <Compile Include="Models\Test.cs" />

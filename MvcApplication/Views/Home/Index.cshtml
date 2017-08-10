@@ -9,21 +9,21 @@
 
 <script type="text/javascript">
 
-    var name = "the name";
-    var object = {
+    //var name = "the name";
+    //var object = {
 
-        name: "xj",
+    //    name: "xj",
 
-        myfunc: function () {
-            alert(this.name);
-            return test = function () {
-                return this.name;
-            }
-            // alert(test());
-        }
-    };
+    //    myfunc: function () {
+    //       // alert(this.name);
+    //        return test = function () {
+    //            return this.name;
+    //        }
+    //        // alert(test());
+    //    }
+    //};
 
-    alert(object.myfunc()());
+    // alert(object.myfunc()());
     //$(function () {
     //    $('#table').delegate('td span input', 'keyup', function (e) {
     //        console.profile('test')
@@ -46,8 +46,44 @@
     //    var tbVal = parseInt($input.val());
     //    $input.val(tbVal + val);
     //}
+
+
+    $(function () {
+        console.log(11);
+
+        var a = '无';
+        console.log(a.length);
+
+        $('#tables a').bind('click', function (e) {
+            //alert($(this).attr('uid'));
+            alert($("#tables tr").index());
+        });
+
+        var ss = $("a[name='abc']");
+        console.log(ss);
+        ss.each(function (i, c) {
+            // alert(i);
+            console.log(c);
+        })
+    });
+    window.onload = function () { console.log(222); }
 </script>
 <div>
+
+    <table id="tables">
+        <tr>
+            <td><a name="abc" uid="11">111</a><input type="checkbox"> </td>
+        </tr>
+        <tr>
+            <td><a name="abc" uid="22">1222</a><input type="checkbox" /></td>
+        </tr>
+        <tr>
+            <td><a name="abc" uid="33">13333</a><input type="checkbox" /></td>
+        </tr>
+    </table>
+
+
+
 
     @using (Html.BeginForm("Index", "Home", FormMethod.Post))
     {
@@ -59,7 +95,7 @@
                 </td>
                 <td>
                     <input type="button" onclick="calc(this, 1)" value="+" />
-                    <input type="button" onclick=" calc(this, -1)" value="-" />
+                    <input type="button" onclick="calc(this, -1)" value="-" />
                 </td>
                 <td>
                     数量：<input class="easyui-textbox" value="0" />

@@ -8,6 +8,7 @@ using MvcApplication.Models;
 using MvcApplication.Controllers;
 using System.Collections;
 using System.Linq.Expressions;
+using System.Net.Http;
 
 namespace MvcApplication.Controllers
 {
@@ -17,29 +18,64 @@ namespace MvcApplication.Controllers
         //
         // GET: /Home/
 
+        public class Login
+        {
+            public string username { get; set; }
+
+            public string pwd { get; set; }
+        }
+
+        public string JsonpTest(Login login)
+        {
+            if (login != null)
+                return "successCallback(success)";
+            else
+                return "successCallback(login is null)";
+        }
+
+
         public ActionResult Index()
         {
+            OracleE();
+            return View();
+
+        }
 
 
+        public void OracleE()
+        {
+            try
+            {
+                object aa = CM.DB.Select("select ITEM from TEST_CZ");
 
-           
+                List<TEST_CZ> list = CM.DB.Select<TEST_CZ>();
+
+               // List<TEST_CZ> listss = CM.DB.Select<TEST_CZ>(t => t.ITEM == int.Parse("34")); // Guid 
+
+                List<TEST_CZ> lists1s = CM.DB.Select<TEST_CZ>(t => t.RAWS == Guid.Parse("a4bc6a4c-e8d6-4c4f-ae66-edef5a7a2077")); // Guid 
+            }
+            catch (Exception ex) { }
+        }
+
+        public void SQLE()
+        {
+
             // try
             //{
 
-            List<TEST1_CZ> a = CM.DB.Select<TEST1_CZ>("select * from TEST1_CZ");
+            int iss = CM.DB.Delete<TEST1_CZ>(t => t.dt <= DateTime.Now);
             List<TEST1_CZ> aa = CM.DB.Select<TEST1_CZ>();
-           a.OrderBy(t => t.id);
+            // a.OrderBy(t => t.id);
 
 
             //
             // catch (Exception e) { }
             TEST1_CZ aabc = new TEST1_CZ()
             {
-                id = 1,
-                COLUMN1 = "内容1"
+
             };
 
-            //CM.DB.Update(aabc);
+            //   CM.DB.Update(aabc);
 
 
             TEST1_CZ aab = new TEST1_CZ()
@@ -48,7 +84,7 @@ namespace MvcApplication.Controllers
                 COLUMN1 = "内容1"
             };
 
-            CM.DB.Insert(aab);
+            CM.DB.Update(aab);
             // }
             // catch (Exception e) { }
             List<Test> test = new List<Test>();
@@ -70,7 +106,6 @@ namespace MvcApplication.Controllers
             tc1.Item = 10;
             tc1.OperateTime = DateTime.Now;
 
-            return View();
 
             try
             {
@@ -108,17 +143,14 @@ namespace MvcApplication.Controllers
                     Verify = 1
                 };
                 //bool aa = CM.DB.Insert(sui);
-           
+
                 int i = 1;
                 List<SY_User> list = CM.DB.Select<SY_User>(m => m.LoginType == i);
-
             }
             catch (Exception ex)
             {
 
             }
-
         }
-
     }
 }

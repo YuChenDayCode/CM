@@ -21,6 +21,7 @@ namespace CMDB
                 return ocm.ExecuteReader();
             }
         }
+
     }
 
 
@@ -111,7 +112,7 @@ namespace CMDB
                     if (value == null)
                         continue; //未给值，null
 
-                    sb.Append(pi.Name + ",");
+                    sb.Append("[" + pi.Name + "],");
                     value = CommonFunc.UnInjection(value);
                     if (value.GetType() == typeof(int) || value.GetType() == typeof(decimal) || value.GetType() == typeof(double) || value.GetType() == typeof(long) || value.GetType() == typeof(float))
                         sb_v.Append(value + ",");
@@ -157,8 +158,8 @@ namespace CMDB
                         }
 
                     }
-                    sb.Append(pi.Name + ",");
-                    object value = pi.GetValue(t,null);
+                    sb.Append("[" + pi.Name + "],");
+                    object value = pi.GetValue(t, null);
                     value = CommonFunc.UnInjection(value);
                     if (value != null &&
                         (value.GetType() == typeof(int) || value.GetType() == typeof(decimal) || value.GetType() == typeof(double) || value.GetType() == typeof(long) || value.GetType() == typeof(float)))
@@ -239,7 +240,7 @@ namespace CMDB
                     #endregion
                     if (value == null) continue; //如果该字段为null不更新
                     value = CommonFunc.UnInjection(value);
-                    sb_u.Append(pi.Name + "=");
+                    sb_u.Append("[" + pi.Name + "]=");
                     if (value != null &&
                         (value.GetType() == typeof(int) || value.GetType() == typeof(decimal) || value.GetType() == typeof(double) || value.GetType() == typeof(long) || value.GetType() == typeof(float)))
                         sb_u.Append(value + ",");
@@ -259,7 +260,7 @@ namespace CMDB
                 sb_u.Remove(sb_u.Length - 1, 1);
                 sb.Append(sb_u);
                 sb.Append(" where ");
-                sb.Append(PrimaryName + " = " + ParmaryValue);
+                sb.Append("[" + PrimaryName + "] = " + ParmaryValue);
             }
 
             return sb.ToString();
@@ -340,7 +341,7 @@ namespace CMDB
                 throw new Exception("请检查主键值");
             else
             {
-                sb.Append(PrimaryName + "=" + ParmaryValue);
+                sb.Append("[" + PrimaryName + "]=" + ParmaryValue);
             }
 
             return sb.ToString();

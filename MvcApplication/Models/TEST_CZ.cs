@@ -1,4 +1,5 @@
 ﻿using CMDB;
+using System;
 
 namespace MvcApplication.Models
 {
@@ -12,5 +13,7 @@ namespace MvcApplication.Models
         public int? ITEM { get; set; }
 
         public string ISOK { get; set; }
+
+        public Guid RAWS { get; set; }
     }
 }

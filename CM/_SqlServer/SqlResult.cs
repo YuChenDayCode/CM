@@ -34,7 +34,6 @@ namespace CMDB
                 }
             }
         }
-
         /// <summary>
         /// 单条数据返会model
         /// </summary>
@@ -53,7 +52,6 @@ namespace CMDB
             if (IsValue) return default(T);
             return model;
         }
-
         /// <summary>
         /// 数据转化为List
         /// </summary>

@@ -13,8 +13,9 @@ namespace MvcApplication.Models
 
         public string COLUMN1 { get; set; }
 
-        public int? intss { get; set; }
-
         public int? intsss { get; set; }
+
+        public DateTime? dt { get; set; }
+
     }
 }
