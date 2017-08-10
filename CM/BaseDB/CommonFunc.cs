@@ -198,9 +198,6 @@ namespace CMDB
                     }
                 }
 
-                //    return Resolve(methodcall.Arguments[0]);
-                //}
-
                 string _Field = Resolve(methodcall.Object);
                 Expression argument = methodcall.Arguments[0];
                 string _likeValue = Resolve(argument);
