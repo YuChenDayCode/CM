@@ -98,11 +98,13 @@ namespace CMDB
                 if (pi != null)
                 {
                     sb.Append(pi.Name + ",");
-                    object value = pi.GetValue(t,null);
+                    object value = pi.GetValue(t, null);
                     value = CommonFunc.UnInjection(value);
                     if (value != null &&
                         (value.GetType() == typeof(int) || value.GetType() == typeof(decimal) || value.GetType() == typeof(double) || value.GetType() == typeof(long) || value.GetType() == typeof(float)))
                         sb_v.Append(value + ",");
+                    else if (value.GetType() == typeof(DateTime))
+                        sb_v.Append("to_date('" + value + "', 'YYYY-MM-DD HH24:MI:SS'),");
                     else
                         sb_v.Append("'" + value + "',");
                 }
@@ -162,7 +164,7 @@ namespace CMDB
             {
                 if (pi != null)
                 {
-                    object value = pi.GetValue(t,null);//字段对应的值
+                    object value = pi.GetValue(t, null);//字段对应的值
                     #region 主键
                     object[] obj = pi.GetCustomAttributes(false);//取特性
                     if (obj.Count() > 0)
@@ -257,7 +259,7 @@ namespace CMDB
             {
                 if (pi != null)
                 {
-                    object value = pi.GetValue(t,null);//字段对应的值
+                    object value = pi.GetValue(t, null);//字段对应的值
 
                     object[] obj = pi.GetCustomAttributes(false);
                     if (obj.Count() > 0)
