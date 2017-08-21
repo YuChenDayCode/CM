@@ -1,5 +1,5 @@
 # CM
-## CMDB/ORM
+## ORM
 
  * 支持Oracle、SqlServer数据库
        根据配置文件识别
@@ -9,8 +9,8 @@
 	</pre></code>
 	 
 
-* 查询Select()：查询所有，根据主键、Linq条件查询(数组.Contains()=in,字符串.Contains()=模糊查询)
-* 插入Insert()：插入一条、多条<
+* 查询Select()：查询所有，根据主键、lambda条件查询(数组.Contains()=in,字符串.Contains()=模糊查询)
+* 插入Insert()：插入一条、多条
 * 插入一条返回主键 InsertReturnId()
 * 更新Update()：更新一条、多条
 * 删除Delete()：清空表，删除、删除多条，根据主键、Linq条件删除
